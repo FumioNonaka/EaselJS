@@ -8,7 +8,8 @@
 	<link href="../_assets/css/examples.css" rel="stylesheet" type="text/css"/>
 	<script src="../_assets/js/examples.js"></script>
 
-	<script src="../lib/easeljs-NEXT.combined.js"></script>
+	<!--<script src="../lib/easeljs-NEXT.combined.js"></script>-->
+	<script src="http://code.createjs.com/easeljs-0.8.0.min.js"></script>
 </head>
 
 <body onload="init();">
@@ -34,7 +35,8 @@
 	var isDrawing;
 	var drawingCanvas;
 	var oldPt;
-	var oldMidPt;
+	// var oldMidPt;
+	var oldMidPt = new createjs.Point();
 	var displayCanvas;
 	var image;
 	var bitmap;
@@ -84,7 +86,9 @@
 
 	function handleMouseDown(event) {
 		oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
-		oldMidPt = oldPt;
+		// oldMidPt = oldPt;  // These two variables reference the same Point object.
+		oldMidPt.x = oldPt.x;
+		oldMidPt.y = oldPt.y;
 		isDrawing = true;
 	}
 
@@ -103,6 +107,8 @@
 				.beginStroke("rgba(0,0,0,0.2)")
 				.moveTo(midPoint.x, midPoint.y)
 				.curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
+
+console.log(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
 
 		oldPt.x = stage.mouseX;
 		oldPt.y = stage.mouseY;
